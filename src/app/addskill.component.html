@@ -1,0 +1,116 @@
+<div>
+    <label class="alert-danger">{{validationError}}</label>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <form [formGroup]="addskillForm" (ngSubmit)="onSubmit()">
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <label for="validationName" class="required">Name</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="name" id="validationName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" required/>
+                            <div *ngIf="submitted && f.name.errors?.required" class="alert-danger">
+                                <div *ngIf="f.name.errors.required">Name is required</div>
+                            </div>
+                            <div *ngIf="submitted && f.name.errors" class="alert-danger">
+                                <div>Please enter minimum 5 characters and maximum 30 characters</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <label for="validationId" class="control-label required">Associate Id</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div><input type="text" formControlName="associateId" class="form-control" id="validationId" [ngClass]="{ 'is-invalid': submitted && f.associateId.errors }" required></div>
+                            <div *ngIf="submitted && f.associateId.errors?.required" class="alert-danger">
+                                <div>Associate Id is required</div>
+                            </div>
+                            <div *ngIf="submitted && f.associateId.errors" class="alert-danger">
+                                <div>Please enter minimum 5 characters and maximum 30 characters</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <label for="validationemailId" class="control-label required">Email Id</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="email" formControlName="emailId" class="form-control" id="validationemailId" [ngClass]="{ 'is-invalid': submitted && f.emailId.errors }" required email/>
+                            <div *ngIf="submitted && f.emailId.errors?.required" class="alert-danger">
+                                <div>Email Id is required</div>
+                            </div>
+                            <div *ngIf="submitted && f.emailId.errors?.pattern" class="alert-danger">
+                                <div>Please enter valid Email Id</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <label for="validationmobile" class="control-label required">Mobile No</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" formControlName="mobileNo" id="validationmobile" [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }" required>
+                            <div *ngIf="submitted && f.mobileNo.errors?.required" class="alert-danger">
+                                <div>Mobile No is required</div>
+                            </div>
+                            <div *ngIf="submitted && f.emailId.errors?.pattern" class="alert-danger">
+                                <div>Please enter valid 10 digit Mobile number</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <table class="table table-bordered" style="width:100%">
+                                <tbody>
+                                    <ng-container *ngFor="let item of skillset">
+                                        <tr *ngIf="item.skillType === 'Tech'">
+                                            <td>
+                                                {{item.value}}
+                                            </td>
+                                            <td>
+                                                <select formControlName="select{{item.value}}" id="select{{item.value}}" class="form-control" [(ngModel)]="item.selectedValue">                                                    
+                                                    
+                                                    <option *ngFor="let ssv of SkillsetValue">{{ssv.value}}</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered" style="width:100%">
+                                <tbody>
+                                    <ng-container *ngFor="let item of skillset">
+                                        <tr *ngIf="item.skillType === 'NTech'">
+                                            <td>
+                                                {{item.value}}
+                                            </td>
+                                            <td>
+                                                <select formControlName="select{{item.value}}" id="select{{item.value}}" class="form-control" [(ngModel)]="item.selectedValue">                                                    
+                                                   
+                                                    <option *ngFor="let ssv of SkillsetValue">{{ssv.value}}</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-11 text-right">
+                            <div class="d-inline p-2"><button (click)="onReset()" class="btn">Reset</button></div>
+                            <div class="d-inline p-2"><input type="submit" class="btn btn-primary" value="{{associateId !=''?'Update': 'Add'}} Skill" /></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

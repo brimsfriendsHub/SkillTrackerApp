@@ -1,0 +1,132 @@
+<div class="card">
+    <div class="card-body">
+        <div>
+            <label class="alert-danger">{{validationMessage}}</label>
+        </div>
+        <form [formGroup]="viewskillForm" (ngSubmit)="onSubmit()">
+            <div class="row  form-group">
+                <div class="col-md-6">
+                    <div class="row  form-group">
+                        <div class="col-md-4">
+                            Name:
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Associate Id:
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="associateId" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row  form-group">
+                        <div class="col-md-4">
+                            Skills:
+                        </div>
+                        <div class="col-md-8">
+                            <select formControlName="skills" id="skills" class="form-control">                                                    
+                                <option>Choose skill</option>
+                                <option *ngFor="let ssv of skillset">{{ssv.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12 text-right">
+                    <input type="submit" class="btn btn-primary" value="Search" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-body">
+        <div *ngFor="let skilllist of searchResult">
+            <div *ngIf="skilllist.associateId !== ''">
+                <div class="row form-group" style="border-bottom: 3px solid black;">
+                    <div class="col-md-4">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                    <td>
+                                        {{skilllist.name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Associate Id
+                                    </td>
+                                    <td>
+                                        {{skilllist.associateId}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        email Id
+                                    </td>
+                                    <td>
+                                        {{skilllist.emailId}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Mobile No
+                                    </td>
+                                    <td>
+                                        {{skilllist.mobileNo}}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <ng-container *ngFor="let item of skilllist.technicalSkill">
+                                    <tr *ngIf="item.skillType === 'Tech'">
+                                        <td>
+                                            {{item.id}}
+                                        </td>
+                                        <td>
+                                            {{item.selectedValue}}
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <ng-container *ngFor="let item of skilllist.technicalSkill">
+                                    <tr *ngIf="item.skillType === 'NTech'">
+                                        <td>
+                                            {{item.id}}
+                                        </td>
+                                        <td>
+                                            {{item.selectedValue}}
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="d-inline p-2"><button (click)="editSingleUser(skilllist)" class="btn">Edit</button></div>
+                    </div>
+                </div>
+                <div style="padding-bottom: 5px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
